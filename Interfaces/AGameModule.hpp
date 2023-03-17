@@ -1,19 +1,17 @@
 /*
 ** EPITECH PROJECT, 2023
-** ADisplayModule.hpp
+** AGameModule.hpp
 ** File description:
 ** -
 */
 
 #pragma once
-#include "IDisplayModule.hpp"
+#include "IGameModule.hpp"
 
-class ADisplayModule : public IDisplayModule
+class AGameModule : public IGameModule
 {
 protected:
     std::string name = "Unknown";
 public:
-    int display() override { return 0; }
-    //
     const std::string &getName() const final { return name; }
 };
