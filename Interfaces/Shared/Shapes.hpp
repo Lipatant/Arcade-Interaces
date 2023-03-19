@@ -6,18 +6,22 @@
 */
 
 #pragma once
+#include <iostream>
 
 namespace shared
 {
-    enum class Shapes
-    {
-        Square,             // | [] |
-        Circle,             // | () |
-        Rhombus,            // | <> |
-        TriangleU,          // | /\ |
-        TriangleD,          // | \/ |
-        TriangleL,          // | <] |
-        TriangleR,          // | [> |
-        NonuniformRationalBSpline,
-    };
+namespace shapes
+{
+    using Type = std::string;
+
+    const std::string SQUARE = "square";            // | [] |
+    const std::string CIRCLE = "circle";            // | () |
+    const std::string RHOMBUS = "rhombus";          // | <> |
+    const std::string TRIANGLE_U = "triangleU";     // | /\ |
+    const std::string TRIANGLE_D = "triangleD";     // | \/ |
+    const std::string TRIANGLE_L = "triangleL";     // | <] |
+    const std::string TRIANGLE_R = "triangleR";     // | [> |
+    const std::string NONUNIFORM_RATIONAL_B_SPLINE = \
+        "nonuniformRationalBSpline";
+}
 }

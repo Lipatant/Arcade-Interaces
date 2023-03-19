@@ -7,17 +7,21 @@
 
 #pragma once
 #include <iostream>
+#include <vector>
 #include "Shared/Colors.hpp"
 #include "Shared/Position.hpp"
 #include "Shared/Shapes.hpp"
 
 namespace shared
 {
+    using DisplayScreenSize = PositionU;
     using DisplayObjectPosition = PositionI;
 
     using DisplayObjectSprite = struct {
         std::string filepath;
-        shared::Shapes shape;
+        shared::shapes::Type shape;
+        shared::colors::Type mainColor;
+        shared::colors::Type secondaryColor;
     };
 
     using DisplayedObject = struct {
@@ -25,5 +29,7 @@ namespace shared
     };
 
     using Display = struct {
+        shared::DisplayScreenSize screenSize;
+        shared::colors::Type baseColor;
     };
 }
