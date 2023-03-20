@@ -10,12 +10,12 @@
 namespace shared
 {
     template <typename T>
-    using Position = struct {
+    struct Position_s {
         T x;
         T y;
     };
 
-    using PositionF = Position<float>;
-    using PositionI = Position<int>;
-    using PositionU = Position<unsigned int>;
+    using PositionF = struct Position_s<float>;
+    using PositionI = struct Position_s<int>;
+    using PositionU = struct Position_s<unsigned int>;
 }

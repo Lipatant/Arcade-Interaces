@@ -8,14 +8,17 @@
 #pragma once
 #include <iostream>
 #include <memory>
+#include "Shared/Display.hpp"
+#include "Shared/Inputs.hpp"
 
 class IDisplayModule
 {
 public:
     virtual ~IDisplayModule() = default;
+    /// @brief Updates inputs
+    virtual void updateInputs(shared::Inputs const &inputs) = 0;
     /// @brief Displays the screen
-    /// @return 1, or 0 if the game has to be exited
-    virtual int display() = 0;
+    virtual void display(shared::Display const &displayed) = 0;
     /// @brief Returns the module's name
     virtual const std::string &getName() const = 0;
 };

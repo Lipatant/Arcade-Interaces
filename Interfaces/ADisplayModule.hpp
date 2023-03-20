@@ -13,7 +13,8 @@ class ADisplayModule : public IDisplayModule
 protected:
     std::string name = "Unknown";
 public:
-    int display() override { return 0; }
+    void updateInputs(shared::Inputs const &) override { }
+    void display(shared::Display const &) override { }
     //
     const std::string &getName() const final { return name; }
 };

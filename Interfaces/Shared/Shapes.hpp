@@ -14,6 +14,7 @@ namespace shapes
 {
     using Type = std::string;
 
+    const std::string NONE = "";
     const std::string SQUARE = "square";            // | [] |
     const std::string CIRCLE = "circle";            // | () |
     const std::string RHOMBUS = "rhombus";          // | <> |
