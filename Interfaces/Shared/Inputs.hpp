@@ -41,9 +41,29 @@ namespace shared
     using Delta = double;
     using InputsList = std::map<shared::inputs::Type, shared::inputs::State>;
 
-    struct Inputs_s {
-        shared::Delta delta;
-        shared::InputsList list;
+    class Inputs
+    {
+    private:
+        shared::Delta _delta = 0;
+        shared::InputsList _list;
+    public:
+        shared::Delta &delta(void) { return _delta; }
+        shared::Delta delta(void) const { return _delta; }
+        shared::InputsList &list(void) { return _list; }
+        shared::InputsList list(void) const { return _list; }
+        //
+        /// @brief Checks the state of an input
+        shared::inputs::State operator[](std::string const &input) const
+        {
+            if (_list.find(input) != _list.end())
+                return _list.at(input);
+            return shared::inputs::State::INACTIVE;
+        }
+        bool isPressed(std::string const &input) const \
+            { return (operator[](input) != shared::inputs::State::INACTIVE); }
+        bool isntPressed(std::string const &input) const \
+            { return (operator[](input) == shared::inputs::State::INACTIVE); }
+        bool hasBeenPressed(std::string const &input) const \
+            { return (operator[](input) == shared::inputs::State::HELD); }
     };
-    using Inputs = struct Inputs_s;
 }

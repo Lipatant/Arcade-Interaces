@@ -13,6 +13,6 @@ class AGameModule : public IGameModule
 protected:
     std::string name = "Unknown";
 public:
-    void updateFrame(shared::Display &, shared::Inputs &) override { };
+    void updateFrame(shared::Display &, shared::Inputs const &) override { };
     const std::string &getName() const final { return name; }
 };

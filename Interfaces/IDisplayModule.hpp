@@ -16,7 +16,7 @@ class IDisplayModule
 public:
     virtual ~IDisplayModule() = default;
     /// @brief Updates inputs
-    virtual void updateInputs(shared::Inputs const &inputs) = 0;
+    virtual void updateInputs(shared::Inputs &inputs) = 0;
     /// @brief Displays the screen
     virtual void display(shared::Display const &displayed) = 0;
     /// @brief Returns the module's name
