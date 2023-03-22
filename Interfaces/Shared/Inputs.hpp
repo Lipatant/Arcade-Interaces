@@ -9,6 +9,7 @@
 #include <iostream>
 #include <map>
 #include <time.h>
+#include "Shared/Time.hpp"
 
 namespace shared
 {
@@ -38,32 +39,64 @@ namespace shared
         };
     }
 
-    using Delta = double;
     using InputsList = std::map<shared::inputs::Type, shared::inputs::State>;
+    using InputsOpenedList = std::map<shared::inputs::Type, bool>;
 
     class Inputs
     {
     private:
         shared::Delta _delta = 0;
         shared::InputsList _list;
+        shared::InputsOpenedList _listOpened;
     public:
         shared::Delta &delta(void) { return _delta; }
         shared::Delta delta(void) const { return _delta; }
         shared::InputsList &list(void) { return _list; }
         shared::InputsList list(void) const { return _list; }
+        shared::InputsOpenedList &listOpened(void) { return _listOpened; }
+        shared::InputsOpenedList listOpened(void) const { return _listOpened; }
         //
         /// @brief Checks the state of an input
-        shared::inputs::State operator[](std::string const &input) const
+        shared::inputs::State operator[](shared::inputs::Type const &input) \
+            const
         {
             if (_list.find(input) != _list.end())
                 return _list.at(input);
             return shared::inputs::State::INACTIVE;
         }
-        bool isPressed(std::string const &input) const \
+        /// @brief Prepares the inputs
+        void open(void)
+        {
+            for (auto const &[key, _] : _listOpened) _listOpened[key] = true;
+        }
+        /// @brief Closes the inputs, removing what is still opened
+        void close(void)
+        {
+            for (auto const &[key, opened] : _listOpened) {
+                if (!opened || isntPressed(key)) continue;
+                _list[key] = shared::inputs::State::INACTIVE;
+            }
+        }
+        /// @brief Adds an input to the lists
+        void operator<<(shared::inputs::Type const &input)
+        {
+            if (_list.find(input) == _list.end()) {
+                _list.insert({input, shared::inputs::State::PRESSED});
+                _listOpened.insert({input, false});
+            } else {
+                _list[input] = (_list[input] == \
+                    shared::inputs::State::INACTIVE ? \
+                    shared::inputs::State::PRESSED : \
+                    shared::inputs::State::HELD);
+                _listOpened[input] = false;
+            }
+        }
+        //
+        bool isPressed(shared::inputs::Type const &input) const \
             { return (operator[](input) != shared::inputs::State::INACTIVE); }
-        bool isntPressed(std::string const &input) const \
+        bool isntPressed(shared::inputs::Type const &input) const \
             { return (operator[](input) == shared::inputs::State::INACTIVE); }
-        bool hasBeenPressed(std::string const &input) const \
-            { return (operator[](input) == shared::inputs::State::HELD); }
+        bool hasBeenPressed(shared::inputs::Type const &input) const \
+            { return (operator[](input) == shared::inputs::State::PRESSED); }
     };
 }

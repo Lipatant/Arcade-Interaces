@@ -57,8 +57,9 @@ namespace shared
     {
     private:
         shared::DisplayObjectSprite _sprite;
-        shared::DisplayObjectPosition _position;
+        shared::DisplayObjectPosition _position = {0, 0};
     public:
+        DisplayedObject(void) { _sprite = shared::DisplayObjectSprite(); }
         shared::DisplayObjectSprite &sprite(void) { return _sprite; }
         shared::DisplayObjectSprite sprite(void) const { return _sprite; }
         shared::DisplayObjectPosition &position(void) { return _position; }
@@ -66,13 +67,37 @@ namespace shared
             { return _position; }
     };
 
-    struct Display_s {
+    class Display
+    {
+    private:
+        // Used to compare fingerprints,
+        //      incremented each time something DOES NOT happen on screen
+        size_t _fingerprint = 0;
         // Size of the screen (in tiles)
-        shared::DisplayScreenSize screenSize;
+        shared::DisplayScreenSize _screenSize = {0, 0};
         // Base color of the screen
-        shared::colors::Type baseColor;
+        shared::colors::Type _baseColor = shared::colors::NONE;
         // List of the different objects
-        std::vector<DisplayedObject> list;
+        std::vector<DisplayedObject> _list = {};
+    public:
+        // Used to compare fingerprints,
+        //      incremented each time something DOES NOT happen on screen
+        size_t &fingerprint(void) { return _fingerprint; }
+        // Used to compare fingerprints,
+        //      incremented each time something DOES NOT happen on screen
+        size_t fingerprint(void) const { return _fingerprint; }
+        // Size of the screen (in tiles)
+        shared::DisplayScreenSize &screenSize(void) { return _screenSize; }
+        // Size of the screen (in tiles)
+        shared::DisplayScreenSize screenSize(void) const \
+            { return _screenSize; }
+        // Base color of the screen
+        shared::colors::Type &baseColor(void) { return _baseColor; }
+        // Base color of the screen
+        shared::colors::Type baseColor(void) const { return _baseColor; }
+        // List of the different objects
+        std::vector<DisplayedObject> &list(void) { return _list; }
+        // List of the different objects
+        std::vector<DisplayedObject> list(void) const { return _list; }
     };
-    using Display = struct Display_s;
 }

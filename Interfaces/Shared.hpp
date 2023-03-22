@@ -10,5 +10,7 @@
 #include "Shared/Display.hpp"
 #include "Shared/Inputs.hpp"
 #include "Shared/LibraryType.hpp"
+#include "Shared/Meta.hpp"
 #include "Shared/Position.hpp"
 #include "Shared/Shapes.hpp"
+#include "Shared/Time.hpp"
