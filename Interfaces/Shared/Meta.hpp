@@ -10,6 +10,7 @@
 
 namespace shared
 {
+    using MetaScore = int;
     /// @brief Used by Menus to send loading infos to the Core.
     ///     Once something is read by the Core, it can reset the value to an
     ///     an empty std::string
@@ -19,6 +20,7 @@ namespace shared
         std::string _loadGame = "";
         std::string _loadGrap = "";
         std::string _loadName = "";
+        shared::MetaScore _score = 0;
     public:
         /// @brief Stores a game filepath inside the members
         /// @param game Filepath to the shared library
@@ -33,6 +35,9 @@ namespace shared
         /// @return The extracted filepath
         std::string const extractGame(void) \
             { std::string tmp = _loadGame; _loadGame = ""; return tmp; }
+        /// @brief Stores a highscore inside the members
+        /// @param score Value of the highscore
+        void storeScore(shared::MetaScore const &score) { _score = score; }
         /// @brief Extracts the stored graphical filepath and ERASE IT
         /// @return The extracted filepath
         std::string const extractGraphical(void) \
@@ -41,5 +46,9 @@ namespace shared
         /// @return The extracted name
         std::string const extractName(void) \
             { std::string tmp = _loadName; _loadName = ""; return tmp; }
+        /// @brief Extracts the stored highscore and ERASE IT
+        /// @return The extracted highscore
+        shared::MetaScore extractScore(void) \
+            { shared::MetaScore tmp = _score; _score = 0; return tmp; }
     };
 }
